@@ -393,7 +393,7 @@ public class VideoDetailsFragment extends DetailsFragmentWithLessTopOffset imple
         mShouldLoadBackdrop = intent.getBooleanExtra(EXTRA_SHOULD_LOAD_BACKDROP, true);
         mPlayerType = intent.getIntExtra(VideoInfoActivity.EXTRA_PLAYER_TYPE, -1);
         mVideoMetadataFromPlayer = (VideoMetadata)intent.getSerializableExtra(VideoInfoActivity.EXTRA_USE_VIDEO_METADATA);
-        
+
         // WORKAROUND: at least one instance of BackdropTask must be created soon in the process (onCreate ?)
         // else it does not work later.
         // --> This instance of BackdropTask() will not be used but it must be created here!
@@ -620,35 +620,38 @@ public class VideoDetailsFragment extends DetailsFragmentWithLessTopOffset imple
             VideoMetadata mMetadata = mVideo.getMetadata();
             isFilePlayable = true;
             // test from FileDetailsRowPresenter to check if file is playable
-            if (mMetadata != null) {
-                if (mMetadata.getFileSize() == 0 && mMetadata.getVideoTrack() == null && mMetadata.getAudioTrackNb() == 0) {
-                    // sometimes metadata are set to zero but the file is there, can be due to libavosjni not loaded
-                    isFilePlayable = false;
-                }
-            }
+	    //if (mMetadata != null) {
+            //    if (mMetadata.getFileSize() == 0 && mMetadata.getVideoTrack() == null && mMetadata.getAudioTrackNb() == 0) {
+            //        // sometimes metadata are set to zero but the file is there, can be due to libavosjni not loaded
+            //        isFilePlayable = false;
+            //    }
+            //}
             if(action.getId() == VideoActionAdapter.ACTION_LOCAL_RESUME){
-                if (isFilePlayable) {
-                    startAds(REQUEST_CODE_LOCAL_RESUME_AFTER_ADS_ACTIVITY);
-                } else {
-                    Toast.makeText(getActivity(), R.string.player_err_cantplayvideo, Toast.LENGTH_SHORT).show();
-                }
+		startAds(REQUEST_CODE_LOCAL_RESUME_AFTER_ADS_ACTIVITY);
+		//if (isFilePlayable) {
+                //    startAds(REQUEST_CODE_LOCAL_RESUME_AFTER_ADS_ACTIVITY);
+                //} else {
+                //    Toast.makeText(getActivity(), R.string.player_err_cantplayvideo, Toast.LENGTH_SHORT).show();
+                //}
             }
             if (action.getId() == VideoActionAdapter.ACTION_RESUME) {
-                if (isFilePlayable) {
-                    startAds(REQUEST_CODE_RESUME_AFTER_ADS_ACTIVITY);
-                } else {
-                    Toast.makeText(getActivity(), R.string.player_err_cantplayvideo, Toast.LENGTH_SHORT).show();
-                }
+                startAds(REQUEST_CODE_RESUME_AFTER_ADS_ACTIVITY);
+		//if (isFilePlayable) {
+                //    startAds(REQUEST_CODE_RESUME_AFTER_ADS_ACTIVITY);
+                //} else {
+                //    Toast.makeText(getActivity(), R.string.player_err_cantplayvideo, Toast.LENGTH_SHORT).show();
+                //}
             }
             if (action.getId() == VideoActionAdapter.ACTION_REMOTE_RESUME) {
                 startAds(REQUEST_CODE_REMOTE_RESUME_AFTER_ADS_ACTIVITY);
             }
             else if (action.getId() == VideoActionAdapter.ACTION_PLAY_FROM_BEGIN || action.getId() == VideoActionAdapter.ACTION_PLAY) {
-                if (isFilePlayable) {
-                    startAds(REQUEST_CODE_PLAY_FROM_BEGIN_AFTER_ADS_ACTIVITY);
-                } else {
-                    Toast.makeText(getActivity(), R.string.player_err_cantplayvideo, Toast.LENGTH_SHORT).show();
-                }
+		startAds(REQUEST_CODE_PLAY_FROM_BEGIN_AFTER_ADS_ACTIVITY);
+                //if (isFilePlayable) {
+                //    startAds(REQUEST_CODE_PLAY_FROM_BEGIN_AFTER_ADS_ACTIVITY);
+                //} else {
+                //    Toast.makeText(getActivity(), R.string.player_err_cantplayvideo, Toast.LENGTH_SHORT).show();
+                //}
             }
             else if (action.getId() == VideoActionAdapter.ACTION_LIST_EPISODES) {
                 // In this case mVideo is a tvshow Episode
@@ -703,7 +706,7 @@ public class VideoDetailsFragment extends DetailsFragmentWithLessTopOffset imple
             }
             else if (action.getId() == VideoActionAdapter.ACTION_DELETE) {
                 mShouldDisplayConfirmDelete = true;
-                
+
                 ((VideoActionAdapter)mDetailsOverviewRow.getActionsAdapter()).update(mVideo, mLaunchedFromPlayer, mShouldDisplayRemoveFromList, mShouldDisplayConfirmDelete, mNextEpisode, mIsTvEpisode);
             }
             else if (action.getId() == VideoActionAdapter.ACTION_CONFIRM_DELETE) {
@@ -747,7 +750,7 @@ public class VideoDetailsFragment extends DetailsFragmentWithLessTopOffset imple
 
                 if (mVideo.getResumeMs() > 0)
                     offset--;
-                
+
                 if (mVideo.getRemoteResumeMs() > 0 && mVideo.getRemoteResumeMs() != mVideo.getResumeMs())
                     offset--;
 
@@ -760,7 +763,7 @@ public class VideoDetailsFragment extends DetailsFragmentWithLessTopOffset imple
 
                 if (mVideo.getResumeMs() > 0)
                     offset--;
-                
+
                 if (mVideo.getRemoteResumeMs() > 0 && mVideo.getRemoteResumeMs() != mVideo.getResumeMs())
                     offset--;
 
@@ -1012,7 +1015,7 @@ public class VideoDetailsFragment extends DetailsFragmentWithLessTopOffset imple
 
             if (smoothUpdate) {
                 mColor = ContextCompat.getColor(getActivity(), R.color.leanback_details_background);
-                
+
                 mVideoBadgePresenter.setSelectedBackgroundColor(mColor);
                 mOverviewRowPresenter.updateBackgroundColor(mColor);
                 mOverviewRowPresenter.updateActionsBackgroundColor(getDarkerColor(mColor));
@@ -1478,7 +1481,7 @@ public class VideoDetailsFragment extends DetailsFragmentWithLessTopOffset imple
                     mAdapter.add(mCastRow);
                 }
             }
-            
+
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
             boolean hideTrailerRow = prefs.getBoolean(VideoPreferencesCommon.KEY_HIDE_TRAILER_ROW, VideoPreferencesCommon.HIDE_TRAILER_ROW_DEFAULT);
 
@@ -1618,8 +1621,9 @@ public class VideoDetailsFragment extends DetailsFragmentWithLessTopOffset imple
                 resume =  PlayerActivity.RESUME_NO;
                 break;
         }
-        mResumeFromPlayer = true;
-        PlayUtils.startVideo(getActivity(), mVideo, resume, false,resumePos, this, getActivity().getIntent().getLongExtra(EXTRA_LIST_ID, -1));
+	mResumeFromPlayer = true;
+	//PlayUtils.startVideo(getActivity(), mVideo, resume, false,resumePos, this, getActivity().getIntent().getLongExtra(EXTRA_LIST_ID, -1));
+        PlayUtils.startVideo(getActivity(), mVideo, resume, true, -1, this, -1);
     }
 
     @Override
@@ -1993,17 +1997,18 @@ public class VideoDetailsFragment extends DetailsFragmentWithLessTopOffset imple
                 VideoMetadata mMetadata = mVideo.getMetadata();
                 isFilePlayable = true;
                 // test from FileDetailsRowPresenter to check if file is playable
-                if (mMetadata != null) {
-                    if (mMetadata.getFileSize() == 0 && mMetadata.getVideoTrack() == null && mMetadata.getAudioTrackNb() == 0) {
-                        // sometimes metadata are set to zero but the file is there, can be due to libavosjni not loaded
-                        isFilePlayable = false;
-                    }
-                }
-                if (isFilePlayable) {
-                    startAds(REQUEST_CODE_RESUME_AFTER_ADS_ACTIVITY);
-                } else {
-                    Toast.makeText(getActivity(), R.string.player_err_cantplayvideo, Toast.LENGTH_SHORT).show();
-                }
+		//if (mMetadata != null) {
+                //    if (mMetadata.getFileSize() == 0 && mMetadata.getVideoTrack() == null && mMetadata.getAudioTrackNb() == 0) {
+                //        // sometimes metadata are set to zero but the file is there, can be due to libavosjni not loaded
+                //        isFilePlayable = false;
+                //    }
+                //}
+		startAds(REQUEST_CODE_RESUME_AFTER_ADS_ACTIVITY);
+                //if (isFilePlayable) {
+                //    startAds(REQUEST_CODE_RESUME_AFTER_ADS_ACTIVITY);
+                //} else {
+                //    Toast.makeText(getActivity(), R.string.player_err_cantplayvideo, Toast.LENGTH_SHORT).show();
+                //}
                 break;
             case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
             case KeyEvent.KEYCODE_MEDIA_NEXT:

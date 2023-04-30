@@ -566,12 +566,12 @@ public class VideoInfoActivityFragment extends Fragment implements LoaderManager
                 mIsLeavingPlayerActivity = true;
                 isFilePlayable = true;
                 VideoMetadata mMetadata = mCurrentVideo.getMetadata();
-                if (mMetadata != null) {
-                    if (mMetadata.getFileSize() == 0 && mMetadata.getVideoTrack() == null && mMetadata.getAudioTrackNb() == 0) {
-                        // sometimes metadata are set to zero but the file is there, can be due to libavosjni not loaded
-                        isFilePlayable = false;
-                    }
-                }
+		//if (mMetadata != null) {
+                //    if (mMetadata.getFileSize() == 0 && mMetadata.getVideoTrack() == null && mMetadata.getAudioTrackNb() == 0) {
+                //        // sometimes metadata are set to zero but the file is there, can be due to libavosjni not loaded
+                //        isFilePlayable = false;
+                //    }
+                //}
                 if (isFilePlayable) {
                     PlayUtils.startVideo(getActivity(),
                             mCurrentVideo,
@@ -1076,12 +1076,12 @@ public class VideoInfoActivityFragment extends Fragment implements LoaderManager
             mIsLeavingPlayerActivity = true;
             VideoMetadata mMetadata = mCurrentVideo.getMetadata();
             isFilePlayable = true;
-            if (mMetadata != null) {
-                if (mMetadata.getFileSize() == 0 && mMetadata.getVideoTrack() == null && mMetadata.getAudioTrackNb() == 0) {
+            //if (mMetadata != null) {
+            //    if (mMetadata.getFileSize() == 0 && mMetadata.getVideoTrack() == null && mMetadata.getAudioTrackNb() == 0) {
                     // sometimes metadata are set to zero but the file is there, can be due to libavosjni not loaded
-                    isFilePlayable = false;
-                }
-            }
+            //        isFilePlayable = false;
+            //    }
+            //}
             if (isFilePlayable) {
                 log.debug("onClick: startVideo resumePos=" + resumePos);
                 // note to self: resumePos only used for external player...

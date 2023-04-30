@@ -154,13 +154,15 @@ public abstract class BrowserByVideoObjects extends Browser implements CommonPre
              menu.setHeaderTitle(video.getName());
         String entryPath = video.getFilePath();
 
-        final int resumePosition = video.getResumeMs();
+	final int localResumePos = video.getResumeMs();
+        final int remoteResumePos = video.getRemoteResumeMs();
+	final int resumePosition =  localResumePos > remoteResumePos ? localResumePos : remoteResumePos;
         final boolean resume = resumePosition > 0;
         final boolean delete = !FileUtils.isSlowRemote(Uri.parse(entryPath)) && video.locationSupportsDelete();
         final boolean markAsTrakt = Trakt.isTraktV2Enabled(mContext, mPreferences);
         final boolean isNetwork = !FileUtils.isLocal(video.getFileUri());
         menu.add(0, R.string.play_from_beginning, 0, R.string.play_selection);
-        if (resume && resumePosition != PlayerActivity.LAST_POSITION_END) {
+        if (resume  && resumePosition != PlayerActivity.LAST_POSITION_END) {
             menu.findItem(R.string.play_from_beginning).setTitle(R.string.play_from_beginning);
             String resumeString = mContext.getString(R.string.resume) + " (" + MediaUtils.formatTime(resumePosition) + ")";
             menu.add(0, R.string.resume, 0, resumeString);
