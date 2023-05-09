@@ -106,7 +106,7 @@ abstract public class BrowserByFolder extends BrowserByVideoObjects implements
         public void handleMessage(Message msg) {
             // The video browser activity may have been paused since the request
             // for showing the dialog was sent (for instance when the device is beeing rotated)
-            // => show the dialog only if the activity is still in the foreground 
+            // => show the dialog only if the activity is still in the foreground
             if (msg.what == DIALOG_LISTING && mIsActive && getParentFragmentManager() != null) {
                 loading();
             }

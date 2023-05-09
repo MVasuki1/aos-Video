@@ -183,7 +183,9 @@ public class BrowserBySFTP extends BrowserByNetwork implements ListingEngine.Lis
         if(errorCode== ListingEngine.ErrorEnum.ERROR_NO_PERMISSION)
             askForCredentials();
     }
-
+    public Uri getCurrentDirectory(){
+    	return mCurrentDirectory;
+    }
     private void askForCredentials(){
         if(getParentFragmentManager().findFragmentByTag(FTPServerCredentialsDialog.class.getCanonicalName())==null){
             FTPServerCredentialsDialog dialog = new FTPServerCredentialsDialog();

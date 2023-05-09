@@ -46,6 +46,7 @@ import com.archos.mediacenter.video.browser.ShortcutDb;
 import com.archos.mediacenter.video.browser.adapters.object.Video;
 import com.archos.mediacenter.video.browser.filebrowsing.BrowserByFolder;
 import com.archos.mediacenter.video.browser.filebrowsing.ListingAdapter;
+import com.archos.mediacenter.video.browser.filebrowsing.network.FtpBrowser.BrowserBySFTP;
 import com.archos.mediaprovider.NetworkScanner;
 
 import org.slf4j.Logger;
@@ -388,7 +389,7 @@ public class BrowserByNetwork extends BrowserByFolder {
                 // If the current folder is indexed => show the "rescan" item
                 // If the current folder is a shortcut but not indexed => show the "index folder"
                 addFolderMenuItem.setVisible(isCurrentDirectoryShortcut && (! isCurrentDirectoryIndexed));
-                rescanFolderMenuItem.setVisible(isHimselfIndexedFolder);
+                rescanFolderMenuItem.setVisible(true);
                 removeFolderMenuItem.setVisible(isHimselfIndexedFolder);
                 addShortcutMenuItem.setVisible((!isCurrentDirectoryShortcut) && (! isCurrentDirectoryIndexed));
                 removeShortcutMenuItem.setVisible(isCurrentDirectoryShortcut && (! isHimselfIndexedFolder));
@@ -405,7 +406,7 @@ public class BrowserByNetwork extends BrowserByFolder {
         menu.add(0,R.string.add_ssh_shortcut, 0,R.string.add_ssh_shortcut);
         menu.add(0, R.string.remove_from_indexed_folders, Menu.NONE, R.string.remove_from_indexed_folders).setIcon(R.drawable.ic_menu_video_unindex).setShowAsAction(
                 MenuItem.SHOW_AS_ACTION_WITH_TEXT | MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        menu.add(0, R.string.rescan, Menu.NONE, R.string.rescan);
+        menu.add(0, R.string.rescan, 0, R.string.rescan);
         menu.add(0,R.string.remove_from_shortcuts, 0,R.string.remove_from_shortcuts).setShowAsAction(
                 MenuItem.SHOW_AS_ACTION_WITH_TEXT | MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }

@@ -406,17 +406,17 @@ public abstract class Browser extends Fragment implements AbsListView.OnScrollLi
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // All is done on action down because it also moves the focus, hence we can't wait for action up
 
-                 
+
                  /*
                   * Work around to handle issues on focus for android 4.1
-                  * 
+                  *
                   * Sometimes it is impossible to down with the pad.
                   * what we know :
                   * before going to the onkey method, list should have scrolled (except when and issue occured)
                   * so, if we are going down, the last visible item has to be focused item +1 (focus is done after the function, when  return false)
                   * if last visible item == selected item even if this isn't the last item of the list, then the list won't scroll anymore.
                   * So we scroll it manually.
-                  * 
+                  *
                   */
                 if (event.getAction() == KeyEvent.ACTION_DOWN && mArchosGridView instanceof ListView) {
                     if (keyCode == KeyEvent.KEYCODE_DPAD_UP && mArchosGridView.getFirstVisiblePosition() == mArchosGridView.getSelectedItemPosition() && mArchosGridView.getSelectedItemPosition() > 0) {
@@ -1079,8 +1079,9 @@ public abstract class Browser extends Fragment implements AbsListView.OnScrollLi
             }
             mDisplayModeSubmenu.selectSubmenuItem(getSubmenuItemIndex(mViewMode));
         }
-        if(shouldEnableMultiSelection())
+        if(shouldEnableMultiSelection()){
             menu.add(0, R.string.multiple_selection, 0, R.string.multiple_selection);
+	}
     }
 
     public void onPrepareOptionsMenu(Menu menu) {
